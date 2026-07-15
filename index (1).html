@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MindChain — El Preguntados de Bitcoin + Conciencia</title>
+<meta name="description" content="Jugar a entender el dinero. Ganar sats por aprender. Respondé, subí de nivel y ganá sats vía Lightning.">
+<meta property="og:title" content="MindChain — El Preguntados de Bitcoin + Conciencia">
+<meta property="og:description" content="Jugar a entender el dinero. Ganar sats por aprender.">
+<meta property="og:image" content="https://mindchain-landing.vercel.app/og-image.png">
+<meta property="og:url" content="https://mindchain-landing.vercel.app/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Newsreader:ital,opsz,wght@1,6..72,300;1,6..72,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#120e0a; --surface:#1d1811; --surface2:#241b0f;
+    --orange:#f7931a; --orange-dim:#f7931a55;
+    --cream:#e8e0d4; --ink:#d8cfc0; --muted:#8d7f6a; --line:#3a3128;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:'Inter',system-ui,sans-serif;
+    font-size:17px; line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--orange);color:var(--bg)}
+
+  .wrap{max-width:680px;margin:0 auto;padding:0 24px}
+
+  /* ---------- header ---------- */
+  header{padding:28px 0;border-bottom:1px solid var(--line)}
+  .logo{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:22px;letter-spacing:-.02em;display:flex;align-items:center;gap:12px}
+  .logo img{height:40px;width:auto}
+  .logo .word{color:#fff}
+  .logo .word span{color:var(--orange)}
+
+  /* ---------- hero ---------- */
+  .hero{padding:72px 0 56px;text-align:left}
+  .hero h1{
+    font-family:'Space Grotesk',sans-serif;font-weight:700;
+    font-size:clamp(38px,7vw,58px);line-height:1.05;color:#fff;letter-spacing:-.03em;
+  }
+  .hero h1 em{
+    font-family:'Newsreader',serif;font-style:italic;font-weight:300;
+    color:var(--orange);letter-spacing:0;
+  }
+  .hero .sub{margin-top:22px;font-size:19px;color:var(--ink);max-width:520px}
+
+  /* ---------- demo jugable ---------- */
+  .demo{margin:56px 0 0}
+  .demo-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px}
+  .demo-label{
+    font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;
+    text-transform:uppercase;letter-spacing:.18em;color:var(--orange);
+  }
+  .satbank{
+    font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;color:var(--orange);
+  }
+  .qcard{
+    background:linear-gradient(150deg,#2a1f10,var(--surface));
+    border:1.5px solid #f7931a99;border-radius:18px;padding:30px 28px;
+    box-shadow:0 0 18px #f7931a59, 0 0 70px #f7931a33, 0 20px 40px #00000066;
+    animation:pulse 3s ease-in-out infinite;
+    transition:border-color .3s;
+  }
+  .qcard.answered{border-color:var(--orange);animation:none;
+    box-shadow:0 0 22px #f7931a73, 0 0 80px #f7931a40, 0 20px 40px #00000066;}
+  @keyframes pulse{
+    0%,100%{box-shadow:0 0 18px #f7931a59, 0 0 70px #f7931a33, 0 20px 40px #00000066}
+    50%{box-shadow:0 0 30px #f7931a80, 0 0 95px #f7931a4d, 0 20px 40px #00000066}
+  }
+  .qmeta{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+  .diff{
+    font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;
+    text-transform:uppercase;letter-spacing:.14em;color:var(--orange);
+    border:1px solid var(--orange-dim);border-radius:99px;padding:4px 12px;
+  }
+  .qnum{font-family:'Space Grotesk',sans-serif;font-size:12px;color:var(--muted);letter-spacing:.1em}
+  .qcard .q{
+    font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:21px;color:#fff;
+    margin-bottom:20px;line-height:1.35;
+  }
+  .opt{
+    display:block;width:100%;text-align:left;cursor:pointer;
+    background:var(--bg);border:1px solid var(--line);border-radius:12px;
+    color:var(--ink);font-family:'Inter',sans-serif;font-size:16px;
+    padding:14px 18px;margin-bottom:10px;transition:all .18s;
+  }
+  .opt:hover{border-color:var(--orange);color:#fff}
+  .opt:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+  .opt.correct{background:#1e2a14;border-color:#7fb046;color:#cde8ad}
+  .opt.wrong{background:#2a1414;border-color:#b04646;color:#e8adad}
+  .opt:disabled{cursor:default}
+  .explain{
+    display:none;margin-top:16px;padding-top:16px;border-top:1px solid var(--line);
+    font-size:15.5px;color:var(--ink);
+  }
+  .explain.show{display:block;animation:fadeUp .5s ease}
+  .explain .sats{
+    font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--orange);
+  }
+  .nextq{
+    display:none;margin-top:18px;
+    font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;
+    color:var(--bg);background:var(--orange);border:none;border-radius:99px;
+    padding:12px 26px;cursor:pointer;transition:transform .15s;
+  }
+  .nextq.show{display:inline-block;animation:fadeUp .5s ease}
+  .nextq:hover{transform:translateY(-2px)}
+  .demo-done{
+    display:none;margin-top:16px;padding-top:16px;border-top:1px solid var(--line);
+    font-size:15.5px;
+  }
+  .demo-done.show{display:block;animation:fadeUp .5s ease}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+  /* ---------- sections ---------- */
+  section{padding:64px 0;border-top:1px solid var(--line)}
+  .eyebrow{
+    font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:500;
+    text-transform:uppercase;letter-spacing:.18em;color:var(--orange);margin-bottom:18px;
+  }
+  h2{
+    font-family:'Space Grotesk',sans-serif;font-weight:700;color:#fff;
+    font-size:clamp(26px,4.5vw,34px);letter-spacing:-.02em;line-height:1.15;margin-bottom:18px;
+  }
+  h2 em{font-family:'Newsreader',serif;font-style:italic;font-weight:300;color:var(--orange)}
+  p+p{margin-top:14px}
+  strong{color:#fff;font-weight:600}
+
+  .levels{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:30px}
+  .level{
+    background:var(--surface);border:1px solid var(--line);border-radius:14px;
+    padding:18px 10px;text-align:center;transition:all .25s;
+  }
+  .level .n{
+    font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:22px;color:var(--muted);
+    transition:color .25s;
+  }
+  .level .name{font-size:13.5px;color:var(--ink);margin-top:4px;line-height:1.3}
+  .level.lit{border-color:var(--orange-dim);background:var(--surface2)}
+  .level.lit .n{color:var(--orange)}
+  @media(max-width:560px){.levels{grid-template-columns:repeat(2,1fr)}}
+
+  ul.feat{list-style:none;margin-top:22px}
+  ul.feat li{padding:16px 0 16px 30px;position:relative;border-bottom:1px solid var(--line)}
+  ul.feat li:last-child{border-bottom:none}
+  ul.feat li::before{content:"▸";color:var(--orange);position:absolute;left:4px;top:16px}
+
+  .phy{
+    background:linear-gradient(150deg,var(--surface2),var(--surface));
+    border:1px solid var(--orange-dim);border-radius:18px;padding:30px 28px;margin-top:26px;
+  }
+  .phy p{font-size:16px}
+
+  /* incentivos */
+  .steps{list-style:none;margin-top:26px;counter-reset:step}
+  .steps li{
+    counter-increment:step;position:relative;padding:0 0 22px 58px;
+  }
+  .steps li::before{
+    content:counter(step);
+    position:absolute;left:0;top:0;
+    width:40px;height:40px;border-radius:50%;
+    background:var(--surface2);border:1px solid var(--orange-dim);
+    color:var(--orange);font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .steps li:not(:last-child)::after{
+    content:"";position:absolute;left:19px;top:44px;bottom:0;width:1px;background:var(--line);
+  }
+  .steps .t{font-family:'Space Grotesk',sans-serif;font-weight:700;color:#fff;font-size:17px}
+  .steps p{font-size:15.5px;margin-top:4px}
+
+  /* ---------- CTA ---------- */
+  .cta{text-align:center;padding:80px 0 90px}
+  .cta h2{margin-bottom:14px}
+  .cta p{max-width:460px;margin:0 auto}
+  .btn{
+    display:inline-block;margin-top:30px;
+    font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;
+    color:var(--bg);background:var(--orange);border-radius:99px;
+    padding:16px 38px;text-decoration:none;transition:transform .15s,box-shadow .15s;
+  }
+  .btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px #f7931a44}
+  .btn:focus-visible{outline:2px solid #fff;outline-offset:3px}
+  .cta .small{margin-top:16px;font-size:14px;color:var(--muted)}
+
+  footer{border-top:1px solid var(--line);padding:28px 0 40px;font-size:13.5px;color:var(--muted)}
+  footer .inner{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  footer .b{color:var(--orange);font-family:'Newsreader',serif;font-style:italic}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none!important;transition:none!important}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="logo"><img src="/pill-brain.png" alt=""><span class="word">Mind<span>Chain</span></span></div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="hero">
+    <h1>Jugar a entender el dinero.<br><em>Ganar sats por aprender.</em></h1>
+    <p class="sub">MindChain es un juego de preguntas y respuestas —mecánica tipo Preguntados— sobre Bitcoin, la historia del dinero y la conciencia. Respondés, subís de nivel y ganás sats reales vía Lightning.</p>
+
+    <div class="demo">
+      <div class="demo-top">
+        <div class="demo-label">Probá el demo — 3 preguntas</div>
+        <div class="satbank" id="satbank">0 sats</div>
+      </div>
+      <div class="qcard" id="qcard"></div>
+    </div>
+  </div>
+
+  <section>
+    <div class="eyebrow">El concepto</div>
+    <h2>Conocimiento que sube de nivel tu <em>conciencia</em></h2>
+    <p>Cada partida es un viaje por seis territorios: Bitcoin Básico, Historia &amp; Satoshi, Economía Honesta, Conciencia &amp; Filosofía, Inflación &amp; Bancos, Libertad &amp; Futuro. Preguntas de conocimiento, memes de la cultura bitcoiner con su explicación, y dilemas éticos.</p>
+    <p>A medida que jugás, avanzás por los <strong>Niveles de Conciencia</strong>:</p>
+    <div class="levels" id="levels">
+      <div class="level"><div class="n">1</div><div class="name">Novato</div></div>
+      <div class="level"><div class="n">2</div><div class="name">Orangepilleado</div></div>
+      <div class="level"><div class="n">3</div><div class="name">Soberano</div></div>
+      <div class="level"><div class="n">4</div><div class="name">Iluminado</div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Sistema de incentivos</div>
+    <h2>Competir por sats, <em>sin humo</em></h2>
+    <p>Como Preguntados, pero el trofeo es real. El modelo está diseñado para ser sostenible: los premios salen de pozos fijos patrocinados, no de emisión infinita.</p>
+    <ol class="steps">
+      <li>
+        <div class="t">Respondés y sumás</div>
+        <p>Cada acierto suma sats según dificultad: fácil +21, media +210, difícil +2.100. Las rachas diarias y la precisión multiplican tu puntaje.</p>
+      </li>
+      <li>
+        <div class="t">Escalás el ranking</div>
+        <p>Tu puntaje te posiciona en la tabla semanal frente a toda la comunidad. Duelos 1v1 para desafiar directamente a otros jugadores.</p>
+      </li>
+      <li>
+        <div class="t">Ganás el pozo</div>
+        <p>Torneos semanales con pozo fijo en sats, patrocinado por proyectos Bitcoin alineados. El top del ranking se lo reparte, con premio mayor para el 1º. Costo conocido, incentivo real, sin tokenomics.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section>
+    <div class="eyebrow">Por qué funciona</div>
+    <h2>Mecánica probada, recompensa <em>real</em></h2>
+    <ul class="feat">
+      <li><strong>Mecánica validada.</strong> Los quiz competitivos —duelos, rankings, rachas— tienen engagement diario probado a escala masiva.</li>
+      <li><strong>Recompensa validada.</strong> Los juegos con premios en sats vía Lightning ya demostraron tracción real en la comunidad Bitcoin, sin recurrir a tokenomics.</li>
+      <li><strong>Contenido diferencial.</strong> Aprender se siente como scrollear, no como estudiar. Detrás hay una base editorial publicada: el ebook <em>Bitcoin sin humo</em>.</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="eyebrow">Diferenciador</div>
+    <h2>Phygital: del <em>puzzle</em> a la pantalla</h2>
+    <div class="phy">
+      <p><strong>Puzzle físico "La Evolución del Dinero"</strong> — trueque → monedas → billetes → dinero electrónico → Bitcoin. Una puerta de entrada táctil al contenido del juego.</p>
+      <p style="margin-top:14px"><strong>Sesiones presenciales</strong> en eventos y espacios físicos como canal de adquisición y comunidad, con conversión al juego digital vía QR.</p>
+      <p style="margin-top:14px;color:#fff">Ningún competidor combina quiz digital + sats + experiencia física.</p>
+    </div>
+  </section>
+
+  <section class="cta" style="border-top:1px solid var(--line)">
+    <div class="eyebrow">Estado del proyecto</div>
+    <h2>MVP en construcción.<br><em>Buscamos aliados tempranos.</em></h2>
+    <p>Estamos desarrollando la primera versión jugable y armando el círculo inicial de aliados estratégicos del ecosistema Bitcoin hispanohablante.</p>
+    <a class="btn" href="mailto:pupovision@gmail.com?subject=MindChain%20—%20quiero%20saber%20m%C3%A1s">Quiero saber más</a>
+    <div class="small">Te enviamos el one-pager del proyecto.</div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="wrap inner">
+    <span class="b">MindChain — elevar la conciencia sobre el dinero, una pregunta a la vez.</span>
+    <span>2026 · España / Argentina</span>
+  </div>
+</footer>
+
+<script>
+  const QUESTIONS = [
+    {
+      diff: "Fácil", reward: 21,
+      q: "¿Cuántos bitcoins existirán como máximo?",
+      opts: [
+        "Ilimitados, se emiten según demanda",
+        "21 millones",
+        "100 millones",
+        "Lo decide cada año la comunidad"
+      ],
+      ok: 1,
+      explain: "<strong>21 millones.</strong> No es una promesa política ni una decisión futura: es una regla del sistema, verificable por cualquiera. Esa escasez programada es la base de todo lo demás."
+    },
+    {
+      diff: "Media", reward: 210,
+      q: "En una economía circular de Bitcoin, ¿qué pasa con el valor que entra a la comunidad?",
+      opts: [
+        "Se atesora y no se mueve (HODL absoluto)",
+        "Se convierte inmediatamente a moneda local",
+        "Circula: se gana, se gasta y vuelve a circular dentro de la comunidad",
+        "Se destina a minería colectiva"
+      ],
+      ok: 2,
+      explain: "<strong>Circula.</strong> A diferencia del sistema extractivo —donde el dinero fluye hacia los centros financieros—, en experiencias como Bitcoin Beach (El Zonte) el valor se gana, se gasta y vuelve a circular localmente, generando un efecto multiplicador de confianza, educación y oportunidades."
+    },
+    {
+      diff: "Difícil", reward: 2100,
+      q: "Según el efecto Cantillon, ¿quiénes ganan más cuando se emite dinero nuevo?",
+      opts: [
+        "Los trabajadores, porque suben los salarios",
+        "Los primeros en recibirlo: bancos y grandes actores financieros",
+        "Los ahorristas, porque sube el interés",
+        "Todos por igual: el efecto se distribuye"
+      ],
+      ok: 1,
+      explain: "<strong>Los primeros en recibirlo.</strong> Quienes acceden al dinero nuevo antes de que los precios suban —instituciones financieras y grandes actores— capturan el beneficio. Trabajadores y ahorristas lo reciben después, con el poder adquisitivo ya diluido. El dinero fiat no es circular por diseño: es piramidal."
+    }
+  ];
+
+  const card = document.getElementById('qcard');
+  const bank = document.getElementById('satbank');
+  const levels = document.querySelectorAll('#levels .level');
+  let idx = 0, sats = 0, lit = 0;
+
+  function litLevels(n){
+    for(let i=0;i<Math.min(n,levels.length);i++){
+      setTimeout(()=>levels[i].classList.add('lit'), i*180);
+    }
+    lit = Math.max(lit,n);
+  }
+
+  function render(){
+    const Q = QUESTIONS[idx];
+    card.classList.remove('answered');
+    card.innerHTML =
+      '<div class="qmeta"><span class="diff">'+Q.diff+' · +'+Q.reward.toLocaleString('es')+' sats</span>'+
+      '<span class="qnum">'+(idx+1)+' / '+QUESTIONS.length+'</span></div>'+
+      '<div class="q">'+Q.q+'</div>'+
+      Q.opts.map((o,i)=>'<button class="opt" data-i="'+i+'">'+o+'</button>').join('')+
+      '<div class="explain" id="explain"></div>'+
+      '<button class="nextq" id="nextq">'+(idx < QUESTIONS.length-1 ? 'Siguiente pregunta →' : 'Ver resultado')+'</button>'+
+      '<div class="demo-done" id="done"></div>';
+
+    card.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => answer(b)));
+    document.getElementById('nextq').addEventListener('click', next);
+  }
+
+  function answer(btn){
+    if (card.classList.contains('answered')) return;
+    card.classList.add('answered');
+    const Q = QUESTIONS[idx];
+    const hit = Number(btn.dataset.i) === Q.ok;
+    card.querySelectorAll('.opt').forEach(b => {
+      b.disabled = true;
+      if (Number(b.dataset.i) === Q.ok) b.classList.add('correct');
+    });
+    if (!hit) btn.classList.add('wrong');
+    if (hit) { sats += Q.reward; bank.textContent = sats.toLocaleString('es') + ' sats'; }
+    const ex = document.getElementById('explain');
+    ex.innerHTML = Q.explain + (hit ? ' <span class="sats">+'+Q.reward.toLocaleString('es')+' sats</span>' : '');
+    ex.classList.add('show');
+    document.getElementById('nextq').classList.add('show');
+    litLevels(idx + (hit ? 2 : 1));
+  }
+
+  function next(){
+    if (idx < QUESTIONS.length - 1) { idx++; render(); }
+    else {
+      const Q = QUESTIONS[idx];
+      document.getElementById('nextq').style.display = 'none';
+      const d = document.getElementById('done');
+      d.innerHTML = '<strong>Demo completado.</strong> Acumulaste <span class="sats">'+sats.toLocaleString('es')+' sats</span> de '+
+        QUESTIONS.reduce((a,q)=>a+q.reward,0).toLocaleString('es')+' posibles. En MindChain, además, las rachas multiplican y los torneos semanales reparten pozos patrocinados. Así se siente aprender.';
+      d.classList.add('show');
+      litLevels(4);
+    }
+  }
+
+  render();
+
+  const io = new IntersectionObserver((es)=>{
+    es.forEach(e=>{ if(e.isIntersecting){ litLevels(1); io.disconnect(); } });
+  },{threshold:.4});
+  if(levels.length) io.observe(levels[0].parentElement);
+</script>
+
+</body>
+</html>
