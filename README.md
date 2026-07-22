@@ -3,7 +3,7 @@
 Demo jugable del juego de preguntas sobre Bitcoin, historia del dinero y pensamiento crítico.
 Parte del ecosistema **Bitcoin sin humo**.
 
-En vivo: https://mindchain-landing.vercel.app
+En vivo: https://jugar-mindchain.vercel.app
 
 ## Qué es este repo
 Un único archivo estático (`index.html`) con todo embebido: las 120 preguntas del banco,
@@ -24,4 +24,4 @@ Usa además `favicon.png`, `apple-touch-icon.png` y `og-image.png` del repo.
 - Bloque de aportes/boost: diseñado y en stand-by
 
 ## Contacto
-pupovision@gmail.com
+laprimadesatoshi@gmail.com
