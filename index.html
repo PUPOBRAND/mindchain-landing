@@ -299,19 +299,36 @@ const MEMES_ACTIVOS = false;
 const POOL = BANK.filter(q => MEMES_ACTIVOS || q.tipo !== 'meme' || !!q.art);
 const TOTAL_BANCO = POOL.length;
 
-// Umbrales por proporción del banco activo: se recalculan solos al reactivar los memes.
+// El nivel mide CONOCIMIENTO (precisión), no volumen.
+// El mínimo de preguntas evita declarar un nivel con muestra insuficiente.
 const NIVELES = [
-  {n:'Precoiner',      pct:0},
-  {n:'Orangepilleado', pct:0.25},
-  {n:'Consciente',     pct:0.50},
-  {n:'Soberano',       pct:0.75},
-].map(x => ({ n:x.n, min: Math.round(x.pct * TOTAL_BANCO) }));
-
-function nivelDe(c){ let r=NIVELES[0]; for(const x of NIVELES){ if(c>=x.min) r=x; } return r; }
-function siguienteNivel(c){ return NIVELES.find(x=>c<x.min) || null; }
+  {n:'Precoiner',      pct:0,    q:0},
+  {n:'Orangepilleado', pct:0.50, q:10},
+  {n:'Consciente',     pct:0.70, q:30},
+  {n:'Soberano',       pct:0.85, q:60},
+];
+function nivelDe(ok, tot){
+  const p = tot ? ok/tot : 0;
+  let r = NIVELES[0];
+  for(const x of NIVELES){ if(p >= x.pct && tot >= x.q) r = x; }
+  return r;
+}
+function faltaPara(ok, tot){
+  const idx = NIVELES.indexOf(nivelDe(ok, tot));
+  const sig = NIVELES[idx+1];
+  if(!sig) return null;
+  const p = tot ? ok/tot : 0;
+  return {
+    sig,
+    faltanQ: Math.max(0, sig.q - tot),
+    subirPct: p < sig.pct,
+    objetivoPct: Math.round(sig.pct*100),
+    progreso: Math.min(1, tot / sig.q)
+  };
+}
 
 // sesion = recorrido acumulado · state = ronda actual
-const sesion = { correctas:0, respondidas:0, sats:0, vistas:new Set(), orangeShown:false };
+const sesion = { correctas:0, respondidas:0, sats:0, vistas:new Set(), orangeShown:false, orangePendiente:false };
 const state  = { orden:[], i:0, aciertos:0, satsRonda:0, contestada:false };
 
 function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
@@ -435,9 +452,8 @@ function responder(btn,q){
     satsN.textContent=sesion.sats.toLocaleString('es');
     satsN.classList.add('bump');
     setTimeout(()=>satsN.classList.remove('bump'),200);
-    if(sesion.correctas===NIVELES[1].min && !sesion.orangeShown){
-      sesion.orangeShown=true;
-      setTimeout(mostrarToast,650);
+    if(!sesion.orangeShown && nivelDe(sesion.correctas, sesion.respondidas).n==='Orangepilleado'){
+      sesion.orangePendiente=true;   // se celebra al cerrar la ronda, no en el medio
     }
   }
 
@@ -468,22 +484,26 @@ function siguiente(){
 function resultado(){
   paintChain();
   document.getElementById('footCounter').style.display='none';
-  const c = sesion.correctas, tot = TOTAL_BANCO;
-  const niv = nivelDe(c), sig = siguienteNivel(c);
-  const pctBanco = Math.round(c/tot*100);
+  const ok = sesion.correctas, tot = sesion.respondidas;
+  const pct = tot ? Math.round(ok/tot*100) : 0;
+  const niv = nivelDe(ok, tot);
+  const f = faltaPara(ok, tot);
+
   let progHtml = '';
-  if(sig){
-    const faltan = sig.min - c;
-    const desde = niv.min, hasta = sig.min;
-    const pct = Math.round((c-desde)/(hasta-desde)*100);
+  if(f){
+    let msg;
+    if(f.faltanQ > 0 && f.subirPct)      msg = `${f.faltanQ} preguntas más y ${f.objetivoPct}% de acierto`;
+    else if(f.faltanQ > 0)               msg = `${f.faltanQ} ${f.faltanQ===1?'pregunta':'preguntas'} más`;
+    else                                 msg = `subir al ${f.objetivoPct}% de acierto`;
     progHtml = `
       <div class="prog">
-        <div class="ptop"><span>Nivel actual: <b>${niv.n}</b></span><span>${faltan} para <b>${sig.n}</b></span></div>
-        <div class="pbar"><i style="width:${pct}%"></i></div>
+        <div class="ptop"><span>Para <b>${f.sig.n}</b></span><span>${msg}</span></div>
+        <div class="pbar"><i style="width:${Math.round(f.progreso*100)}%"></i></div>
       </div>`;
   } else {
-    progHtml = `<div class="prog"><div class="ptop" style="justify-content:center"><span>Nivel máximo alcanzado: <b>${niv.n}</b></span></div></div>`;
+    progHtml = `<div class="prog"><div class="ptop" style="justify-content:center"><span>Nivel máximo alcanzado</span></div></div>`;
   }
+
   stage.innerHTML=`
     <div class="card result">
       <div class="rlabel">Esta ronda</div>
@@ -495,15 +515,20 @@ function resultado(){
 
       <div class="sep"></div>
 
-      <div class="rlabel">Tu recorrido</div>
+      <div class="rlabel">Tu nivel</div>
       <div class="nivel"><em>${niv.n}</em></div>
-      <p style="margin-bottom:14px">${c} de ${tot} preguntas del banco respondidas bien (${pctBanco}%)<br>
+      <p style="margin-bottom:14px"><b style="color:var(--hueso)">${pct}% de acierto</b> en ${tot} ${tot===1?'pregunta':'preguntas'} · ${ok} correctas<br>
       <span style="color:var(--naranja-neon);font-weight:600">${sesion.sats.toLocaleString('es')} sats acumulados</span> <span style="font-size:12px">· simulados en esta demo</span></p>
       ${progHtml}
 
       <button class="next show" id="again">Jugar otra ronda</button>
     </div>`;
   document.getElementById('again').onclick=()=>{ document.getElementById('footCounter').style.display='block'; start(); };
+
+  if(sesion.orangePendiente && !sesion.orangeShown){
+    sesion.orangeShown=true; sesion.orangePendiente=false;
+    setTimeout(mostrarToast, 500);
+  }
 }
 
 
