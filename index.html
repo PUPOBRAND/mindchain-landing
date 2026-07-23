@@ -229,6 +229,19 @@
 
   .memeart{width:100%;margin-bottom:18px;padding:14px 12px;border-radius:12px;
     background:linear-gradient(180deg,#0e0e12,#141419);border:1px solid var(--borde)}
+
+  /* CTA de cierre */
+  .cta{max-width:560px;margin:22px auto 0;padding:22px 20px;border-radius:18px;text-align:center;
+    background:radial-gradient(120% 100% at 50% 0%, rgba(255,169,40,.14), rgba(247,147,26,.03));
+    border:1px solid rgba(247,147,26,.4)}
+  .cta .l1{font-size:14.5px;line-height:1.6;color:#ddd7cc;margin-bottom:10px}
+  .cta .l1 b{color:var(--hueso)}
+  .cta .l2{font-size:19px;font-weight:700;color:var(--naranja-neon);margin-bottom:14px;
+    text-shadow:0 0 14px rgba(247,147,26,.5)}
+  .cta .mail{display:inline-block;padding:11px 22px;border-radius:11px;text-decoration:none;
+    font-weight:700;font-size:15px;color:#0d0d0f;
+    background:linear-gradient(180deg,var(--naranja-hot),var(--naranja));
+    box-shadow:0 0 24px -6px rgba(247,147,26,.65)}
 </style>
 </head>
 <body>
@@ -278,10 +291,11 @@
     </div>
   </section>
 
-  <footer style="margin-top:20px;text-align:center;font-size:13px;color:var(--gris);line-height:1.8">
-    ¿Te interesa saber más?<br>
-    <a href="mailto:laprimadesatoshi@gmail.com?subject=MindChain" style="color:var(--naranja-neon);text-decoration:none;border-bottom:1px solid rgba(247,147,26,.35);font-size:14px">laprimadesatoshi@gmail.com</a>
-  </footer>
+  <section class="cta">
+    <p class="l1">Buscamos <b>aporte ángel o alianza estratégica</b><br>para llevar MindChain del prototipo al MVP.</p>
+    <p class="l2">Hablemos.</p>
+    <a class="mail" href="mailto:laprimadesatoshi@gmail.com?subject=MindChain">laprimadesatoshi@gmail.com</a>
+  </section>
 
 </div>
 
