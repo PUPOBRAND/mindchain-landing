@@ -242,6 +242,69 @@
     font-weight:700;font-size:15px;color:#0d0d0f;
     background:linear-gradient(180deg,var(--naranja-hot),var(--naranja));
     box-shadow:0 0 24px -6px rgba(247,147,26,.65)}
+
+  /* ── Bloque BOOST (aportes) ── */
+  .boost{max-width:560px;margin:22px auto 0;padding:24px 22px;border-radius:18px;
+    background:linear-gradient(180deg,var(--tinta-2),rgba(17,17,20,.6));
+    border:1px solid var(--borde);text-align:center}
+  .boost .kick{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--naranja-neon);font-weight:600;margin-bottom:9px}
+  .boost h2{font-size:16px;font-weight:700;margin-bottom:12px;color:var(--hueso)}
+  .boost h2 span{color:var(--naranja-neon)}
+  .boost .lead{font-size:13.5px;color:#c9c4bb;line-height:1.6;margin-bottom:20px}
+  .boost .lead b{color:var(--hueso)}
+  .boost .tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+  .boost .tier{padding:13px 6px;border-radius:12px;cursor:pointer;font-family:inherit;
+    background:var(--tinta-3);border:1px solid var(--borde);color:var(--hueso);
+    transition:border-color .18s,background .18s,box-shadow .18s}
+  .boost .tier:hover{border-color:rgba(247,147,26,.55)}
+  .boost .tier[aria-pressed="true"]{border-color:var(--naranja);background:var(--naranja-tenue);
+    box-shadow:0 0 22px -8px rgba(247,147,26,.8)}
+  .boost .tier em{display:block;font-style:normal;font-size:10px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--gris);margin-bottom:5px;font-weight:600}
+  .boost .tier b{display:block;font-size:14px;color:var(--naranja-neon)}
+  .boost .tier i{display:block;font-style:normal;font-size:11px;color:var(--gris);margin-top:3px}
+  .boost .libre{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;
+    font-size:12.5px;color:var(--gris);margin-bottom:18px}
+  .boost .libre input{width:110px;padding:8px 10px;border-radius:10px;text-align:right;
+    background:var(--tinta-3);border:1px solid var(--borde);color:var(--hueso);
+    font-family:inherit;font-size:13px}
+  .boost .libre input:focus{outline:none;border-color:var(--naranja)}
+  .boost .libre .usd{color:var(--naranja-neon);font-weight:600}
+  .boost .instr{font-size:13px;line-height:1.55;color:#ddd7cc;padding:12px 14px;border-radius:12px;
+    background:var(--naranja-tenue);border:1px solid rgba(247,147,26,.3);margin-bottom:22px}
+  .boost .instr b{color:var(--naranja-neon)}
+  .boost .rail{display:flex;flex-direction:column;align-items:center;gap:11px}
+  .boost .rlbl{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--naranja-neon);font-weight:600}
+  .boost .rlbl s{text-decoration:none;color:var(--gris)}
+  .boost .qr{background:#F5EFE0;border-radius:14px;padding:9px;line-height:0;
+    box-shadow:0 0 26px -10px rgba(247,147,26,.6)}
+  .boost .qr svg{display:block;width:200px;height:200px}
+  .boost .qr.sm svg{width:126px;height:126px}
+  .boost .addr{display:inline-flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;
+    color:#c9c4bb;word-break:break-all;max-width:100%}
+  .boost .cp{padding:5px 10px;border-radius:8px;cursor:pointer;white-space:nowrap;
+    background:var(--tinta-3);border:1px solid var(--borde);color:var(--hueso);
+    font-family:inherit;font-size:11px;transition:border-color .18s}
+  .boost .cp:hover{border-color:var(--naranja)}
+  .boost .open{font-size:12.5px;color:var(--naranja-neon);text-decoration:none;
+    border-bottom:1px solid rgba(247,147,26,.4)}
+  .boost .sep{width:100%;height:1px;background:var(--borde);margin:26px 0 20px}
+  .boost .oc{opacity:.8}
+  .boost .oc .addr{font-size:10.5px}
+  .boost .foot{font-size:12px;line-height:1.6;color:var(--gris);margin-top:22px}
+  .boost .foot a{color:var(--naranja-neon);text-decoration:none;
+    border-bottom:1px solid rgba(247,147,26,.4)}
+  @media (max-width:430px){
+    .boost{padding:20px 15px}
+    .boost .tiers{grid-template-columns:1fr;gap:7px}
+    .boost .tier{display:flex;align-items:center;justify-content:space-between;
+      padding:11px 14px;text-align:left}
+    .boost .tier em{margin:0}
+    .boost .qr svg{width:176px;height:176px}
+  }
 </style>
 </head>
 <body>
@@ -289,6 +352,56 @@
       <span class="feat">₿ Recompensas en sats por Lightning</span>
       <span class="feat">100 preguntas que enseñan</span>
     </div>
+  </section>
+
+
+  <section class="boost" id="boost">
+    <p class="kick">Proof of Boost</p>
+    <h2>Impulsa el motor que <span>paga los sats</span></h2>
+    <p class="lead">
+      El juego ya se juega. Falta el backend que verifica las respuestas del lado del
+      servidor: sin eso, MindChain no puede pagar sats de verdad. Cada boost financia
+      esa pieza. A cambio, el <b>Sello Génesis</b>: numerado por orden de llegada.
+    </p>
+
+    <div class="tiers" role="group" aria-label="Montos sugeridos">
+      <button class="tier" type="button" data-sats="5000" aria-pressed="false">
+        <em>Boost</em><b>5.000 sats</b><i class="eq"></i></button>
+      <button class="tier" type="button" data-sats="21000" aria-pressed="true">
+        <em>Boost Génesis</em><b>21.000 sats</b><i class="eq"></i></button>
+      <button class="tier" type="button" data-sats="55000" aria-pressed="false">
+        <em>Súper Boost</em><b>55.000 sats</b><i class="eq"></i></button>
+    </div>
+
+    <div class="libre">
+      <label for="boostMonto">O el monto que prefieras:</label>
+      <input id="boostMonto" type="number" min="1" step="1" placeholder="sats" inputmode="numeric">
+      <span class="usd" id="boostUsd"></span>
+    </div>
+
+    <p class="instr">Escanea el QR o copia la dirección, e ingresa
+      <b id="boostMontoTxt">21.000 sats</b> en tu billetera.</p>
+
+    <div class="rail">
+      <p class="rlbl">Lightning · recomendado</p>
+      <div class="qr"><svg viewBox="0 0 35 35" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges"><rect width="35" height="35" fill="#F5EFE0"/><path d="M3 3h7v1h-7zM16 3h1v1h-1zM20 3h3v1h-3zM25 3h7v1h-7zM3 4h1v1h-1zM9 4h1v1h-1zM12 4h2v1h-2zM19 4h1v1h-1zM21 4h1v1h-1zM23 4h1v1h-1zM25 4h1v1h-1zM31 4h1v1h-1zM3 5h1v1h-1zM5 5h3v1h-3zM9 5h1v1h-1zM11 5h3v1h-3zM15 5h2v1h-2zM23 5h1v1h-1zM25 5h1v1h-1zM27 5h3v1h-3zM31 5h1v1h-1zM3 6h1v1h-1zM5 6h3v1h-3zM9 6h1v1h-1zM11 6h1v1h-1zM13 6h1v1h-1zM15 6h1v1h-1zM18 6h3v1h-3zM22 6h2v1h-2zM25 6h1v1h-1zM27 6h3v1h-3zM31 6h1v1h-1zM3 7h1v1h-1zM5 7h3v1h-3zM9 7h1v1h-1zM13 7h1v1h-1zM17 7h2v1h-2zM20 7h1v1h-1zM22 7h1v1h-1zM25 7h1v1h-1zM27 7h3v1h-3zM31 7h1v1h-1zM3 8h1v1h-1zM9 8h1v1h-1zM12 8h3v1h-3zM16 8h1v1h-1zM18 8h4v1h-4zM25 8h1v1h-1zM31 8h1v1h-1zM3 9h7v1h-7zM11 9h1v1h-1zM13 9h1v1h-1zM15 9h1v1h-1zM17 9h1v1h-1zM19 9h1v1h-1zM21 9h1v1h-1zM23 9h1v1h-1zM25 9h7v1h-7zM12 10h4v1h-4zM17 10h2v1h-2zM22 10h2v1h-2zM6 11h2v1h-2zM9 11h2v1h-2zM13 11h1v1h-1zM15 11h1v1h-1zM17 11h2v1h-2zM21 11h3v1h-3zM28 11h2v1h-2zM3 12h1v1h-1zM6 12h3v1h-3zM11 12h2v1h-2zM17 12h1v1h-1zM19 12h1v1h-1zM23 12h1v1h-1zM25 12h1v1h-1zM27 12h1v1h-1zM29 12h1v1h-1zM3 13h4v1h-4zM9 13h2v1h-2zM12 13h2v1h-2zM15 13h2v1h-2zM21 13h1v1h-1zM24 13h6v1h-6zM6 14h1v1h-1zM8 14h1v1h-1zM10 14h4v1h-4zM15 14h1v1h-1zM19 14h1v1h-1zM25 14h1v1h-1zM27 14h1v1h-1zM30 14h2v1h-2zM5 15h1v1h-1zM7 15h1v1h-1zM9 15h2v1h-2zM13 15h1v1h-1zM15 15h1v1h-1zM17 15h2v1h-2zM21 15h3v1h-3zM25 15h2v1h-2zM28 15h1v1h-1zM3 16h1v1h-1zM11 16h2v1h-2zM16 16h1v1h-1zM18 16h3v1h-3zM22 16h1v1h-1zM25 16h4v1h-4zM31 16h1v1h-1zM6 17h2v1h-2zM9 17h1v1h-1zM11 17h1v1h-1zM14 17h1v1h-1zM19 17h1v1h-1zM22 17h1v1h-1zM26 17h1v1h-1zM31 17h1v1h-1zM3 18h1v1h-1zM7 18h2v1h-2zM11 18h1v1h-1zM13 18h2v1h-2zM17 18h3v1h-3zM22 18h1v1h-1zM27 18h5v1h-5zM3 19h1v1h-1zM5 19h1v1h-1zM7 19h1v1h-1zM9 19h3v1h-3zM13 19h2v1h-2zM16 19h1v1h-1zM18 19h1v1h-1zM20 19h4v1h-4zM25 19h1v1h-1zM3 20h2v1h-2zM6 20h2v1h-2zM10 20h1v1h-1zM12 20h3v1h-3zM17 20h1v1h-1zM21 20h1v1h-1zM23 20h1v1h-1zM25 20h1v1h-1zM27 20h3v1h-3zM3 21h2v1h-2zM8 21h2v1h-2zM11 21h2v1h-2zM15 21h1v1h-1zM17 21h2v1h-2zM21 21h1v1h-1zM23 21h3v1h-3zM27 21h2v1h-2zM31 21h1v1h-1zM3 22h4v1h-4zM8 22h1v1h-1zM10 22h2v1h-2zM13 22h2v1h-2zM16 22h3v1h-3zM20 22h1v1h-1zM24 22h1v1h-1zM26 22h2v1h-2zM29 22h1v1h-1zM31 22h1v1h-1zM3 23h4v1h-4zM9 23h1v1h-1zM11 23h3v1h-3zM18 23h3v1h-3zM23 23h9v1h-9zM11 24h2v1h-2zM15 24h3v1h-3zM19 24h2v1h-2zM23 24h1v1h-1zM27 24h2v1h-2zM30 24h1v1h-1zM3 25h7v1h-7zM11 25h2v1h-2zM14 25h6v1h-6zM22 25h2v1h-2zM25 25h1v1h-1zM27 25h1v1h-1zM3 26h1v1h-1zM9 26h1v1h-1zM13 26h5v1h-5zM19 26h1v1h-1zM22 26h2v1h-2zM27 26h2v1h-2zM30 26h2v1h-2zM3 27h1v1h-1zM5 27h3v1h-3zM9 27h1v1h-1zM11 27h1v1h-1zM14 27h1v1h-1zM16 27h3v1h-3zM20 27h9v1h-9zM30 27h2v1h-2zM3 28h1v1h-1zM5 28h3v1h-3zM9 28h1v1h-1zM11 28h2v1h-2zM19 28h3v1h-3zM23 28h2v1h-2zM30 28h1v1h-1zM3 29h1v1h-1zM5 29h3v1h-3zM9 29h1v1h-1zM12 29h3v1h-3zM16 29h1v1h-1zM18 29h2v1h-2zM22 29h3v1h-3zM26 29h6v1h-6zM3 30h1v1h-1zM9 30h1v1h-1zM14 30h1v1h-1zM16 30h2v1h-2zM19 30h1v1h-1zM22 30h2v1h-2zM25 30h1v1h-1zM27 30h3v1h-3zM31 30h1v1h-1zM3 31h7v1h-7zM13 31h2v1h-2zM17 31h1v1h-1zM21 31h1v1h-1zM23 31h1v1h-1zM27 31h1v1h-1z" fill="#A33A00"/></svg></div>
+      <p class="addr"><span>mindchain@aqua.net</span>
+        <button class="cp" type="button" data-copy="mindchain@aqua.net">copiar</button></p>
+      <a class="open" href="lightning:mindchain@aqua.net">Abrir en la billetera</a>
+    </div>
+
+    <div class="sep"></div>
+
+    <div class="rail oc">
+      <p class="rlbl"><s>On-chain · para montos grandes</s></p>
+      <div class="qr sm"><svg viewBox="0 0 43 43" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges"><rect width="43" height="43" fill="#F5EFE0"/><path d="M3 3h7v1h-7zM13 3h2v1h-2zM17 3h1v1h-1zM19 3h2v1h-2zM22 3h1v1h-1zM25 3h1v1h-1zM27 3h3v1h-3zM33 3h7v1h-7zM3 4h1v1h-1zM9 4h1v1h-1zM16 4h1v1h-1zM18 4h1v1h-1zM21 4h2v1h-2zM24 4h1v1h-1zM27 4h1v1h-1zM29 4h1v1h-1zM31 4h1v1h-1zM33 4h1v1h-1zM39 4h1v1h-1zM3 5h1v1h-1zM5 5h3v1h-3zM9 5h1v1h-1zM11 5h1v1h-1zM14 5h1v1h-1zM16 5h1v1h-1zM18 5h1v1h-1zM21 5h1v1h-1zM23 5h1v1h-1zM28 5h1v1h-1zM33 5h1v1h-1zM35 5h3v1h-3zM39 5h1v1h-1zM3 6h1v1h-1zM5 6h3v1h-3zM9 6h1v1h-1zM11 6h1v1h-1zM13 6h1v1h-1zM16 6h2v1h-2zM19 6h1v1h-1zM22 6h2v1h-2zM26 6h1v1h-1zM28 6h1v1h-1zM33 6h1v1h-1zM35 6h3v1h-3zM39 6h1v1h-1zM3 7h1v1h-1zM5 7h3v1h-3zM9 7h1v1h-1zM12 7h1v1h-1zM17 7h1v1h-1zM19 7h2v1h-2zM22 7h6v1h-6zM29 7h1v1h-1zM33 7h1v1h-1zM35 7h3v1h-3zM39 7h1v1h-1zM3 8h1v1h-1zM9 8h1v1h-1zM13 8h1v1h-1zM15 8h2v1h-2zM20 8h1v1h-1zM24 8h1v1h-1zM26 8h1v1h-1zM29 8h1v1h-1zM31 8h1v1h-1zM33 8h1v1h-1zM39 8h1v1h-1zM3 9h7v1h-7zM11 9h1v1h-1zM13 9h1v1h-1zM15 9h1v1h-1zM17 9h1v1h-1zM19 9h1v1h-1zM21 9h1v1h-1zM23 9h1v1h-1zM25 9h1v1h-1zM27 9h1v1h-1zM29 9h1v1h-1zM31 9h1v1h-1zM33 9h7v1h-7zM12 10h1v1h-1zM14 10h1v1h-1zM17 10h2v1h-2zM20 10h3v1h-3zM25 10h2v1h-2zM28 10h2v1h-2zM31 10h1v1h-1zM6 11h2v1h-2zM9 11h2v1h-2zM13 11h1v1h-1zM16 11h1v1h-1zM18 11h1v1h-1zM24 11h1v1h-1zM30 11h1v1h-1zM36 11h2v1h-2zM6 12h1v1h-1zM10 12h1v1h-1zM12 12h1v1h-1zM15 12h3v1h-3zM22 12h2v1h-2zM26 12h2v1h-2zM30 12h1v1h-1zM34 12h2v1h-2zM37 12h2v1h-2zM4 13h2v1h-2zM7 13h1v1h-1zM9 13h2v1h-2zM13 13h1v1h-1zM15 13h2v1h-2zM21 13h2v1h-2zM27 13h1v1h-1zM29 13h2v1h-2zM32 13h2v1h-2zM35 13h5v1h-5zM3 14h1v1h-1zM6 14h1v1h-1zM10 14h1v1h-1zM13 14h2v1h-2zM16 14h6v1h-6zM23 14h2v1h-2zM27 14h1v1h-1zM33 14h7v1h-7zM3 15h1v1h-1zM5 15h2v1h-2zM9 15h1v1h-1zM11 15h1v1h-1zM13 15h1v1h-1zM16 15h4v1h-4zM21 15h2v1h-2zM26 15h2v1h-2zM30 15h1v1h-1zM33 15h1v1h-1zM36 15h1v1h-1zM38 15h1v1h-1zM3 16h2v1h-2zM15 16h2v1h-2zM18 16h2v1h-2zM21 16h3v1h-3zM26 16h3v1h-3zM30 16h1v1h-1zM34 16h2v1h-2zM38 16h1v1h-1zM4 17h1v1h-1zM6 17h1v1h-1zM8 17h3v1h-3zM12 17h2v1h-2zM17 17h1v1h-1zM19 17h1v1h-1zM21 17h4v1h-4zM28 17h5v1h-5zM35 17h2v1h-2zM39 17h1v1h-1zM3 18h5v1h-5zM10 18h2v1h-2zM14 18h3v1h-3zM19 18h1v1h-1zM22 18h1v1h-1zM27 18h1v1h-1zM30 18h1v1h-1zM33 18h1v1h-1zM35 18h4v1h-4zM4 19h3v1h-3zM8 19h2v1h-2zM11 19h2v1h-2zM16 19h2v1h-2zM22 19h5v1h-5zM28 19h1v1h-1zM31 19h3v1h-3zM36 19h2v1h-2zM39 19h1v1h-1zM3 20h1v1h-1zM5 20h3v1h-3zM15 20h3v1h-3zM19 20h1v1h-1zM21 20h1v1h-1zM23 20h1v1h-1zM25 20h3v1h-3zM30 20h2v1h-2zM34 20h1v1h-1zM36 20h3v1h-3zM4 21h1v1h-1zM9 21h1v1h-1zM11 21h1v1h-1zM13 21h1v1h-1zM18 21h4v1h-4zM23 21h1v1h-1zM27 21h1v1h-1zM29 21h2v1h-2zM32 21h6v1h-6zM39 21h1v1h-1zM8 22h1v1h-1zM10 22h2v1h-2zM15 22h1v1h-1zM17 22h1v1h-1zM20 22h2v1h-2zM24 22h1v1h-1zM27 22h2v1h-2zM30 22h1v1h-1zM32 22h1v1h-1zM35 22h2v1h-2zM4 23h2v1h-2zM7 23h5v1h-5zM15 23h4v1h-4zM20 23h3v1h-3zM24 23h1v1h-1zM26 23h1v1h-1zM30 23h4v1h-4zM35 23h2v1h-2zM4 24h3v1h-3zM8 24h1v1h-1zM10 24h1v1h-1zM12 24h3v1h-3zM20 24h3v1h-3zM24 24h3v1h-3zM30 24h1v1h-1zM34 24h5v1h-5zM3 25h1v1h-1zM5 25h1v1h-1zM8 25h7v1h-7zM16 25h1v1h-1zM18 25h4v1h-4zM24 25h1v1h-1zM27 25h2v1h-2zM30 25h1v1h-1zM32 25h1v1h-1zM34 25h2v1h-2zM37 25h1v1h-1zM39 25h1v1h-1zM4 26h1v1h-1zM13 26h1v1h-1zM21 26h1v1h-1zM24 26h1v1h-1zM32 26h2v1h-2zM37 26h2v1h-2zM3 27h5v1h-5zM9 27h2v1h-2zM12 27h2v1h-2zM15 27h1v1h-1zM17 27h3v1h-3zM21 27h1v1h-1zM23 27h2v1h-2zM28 27h3v1h-3zM33 27h2v1h-2zM39 27h1v1h-1zM3 28h3v1h-3zM7 28h1v1h-1zM10 28h3v1h-3zM14 28h2v1h-2zM17 28h3v1h-3zM25 28h1v1h-1zM27 28h4v1h-4zM32 28h1v1h-1zM35 28h4v1h-4zM3 29h5v1h-5zM9 29h4v1h-4zM16 29h3v1h-3zM20 29h1v1h-1zM22 29h2v1h-2zM30 29h4v1h-4zM36 29h1v1h-1zM39 29h1v1h-1zM3 30h1v1h-1zM5 30h1v1h-1zM10 30h1v1h-1zM13 30h1v1h-1zM19 30h2v1h-2zM25 30h1v1h-1zM27 30h1v1h-1zM29 30h1v1h-1zM31 30h1v1h-1zM35 30h3v1h-3zM39 30h1v1h-1zM3 31h1v1h-1zM5 31h5v1h-5zM11 31h1v1h-1zM13 31h1v1h-1zM16 31h1v1h-1zM18 31h2v1h-2zM21 31h3v1h-3zM26 31h1v1h-1zM28 31h1v1h-1zM30 31h8v1h-8zM39 31h1v1h-1zM11 32h4v1h-4zM17 32h1v1h-1zM21 32h4v1h-4zM27 32h2v1h-2zM31 32h1v1h-1zM35 32h1v1h-1zM37 32h1v1h-1zM3 33h7v1h-7zM11 33h2v1h-2zM14 33h1v1h-1zM17 33h3v1h-3zM21 33h1v1h-1zM26 33h2v1h-2zM29 33h1v1h-1zM31 33h1v1h-1zM33 33h1v1h-1zM35 33h1v1h-1zM39 33h1v1h-1zM3 34h1v1h-1zM9 34h1v1h-1zM13 34h2v1h-2zM18 34h2v1h-2zM21 34h2v1h-2zM25 34h2v1h-2zM28 34h1v1h-1zM30 34h2v1h-2zM35 34h1v1h-1zM38 34h2v1h-2zM3 35h1v1h-1zM5 35h3v1h-3zM9 35h1v1h-1zM11 35h1v1h-1zM13 35h4v1h-4zM18 35h3v1h-3zM22 35h1v1h-1zM27 35h1v1h-1zM29 35h7v1h-7zM39 35h1v1h-1zM3 36h1v1h-1zM5 36h3v1h-3zM9 36h1v1h-1zM11 36h5v1h-5zM18 36h4v1h-4zM23 36h3v1h-3zM28 36h2v1h-2zM31 36h4v1h-4zM37 36h1v1h-1zM3 37h1v1h-1zM5 37h3v1h-3zM9 37h1v1h-1zM12 37h3v1h-3zM18 37h4v1h-4zM23 37h3v1h-3zM27 37h1v1h-1zM29 37h1v1h-1zM31 37h2v1h-2zM35 37h1v1h-1zM37 37h3v1h-3zM3 38h1v1h-1zM9 38h1v1h-1zM12 38h1v1h-1zM14 38h1v1h-1zM16 38h1v1h-1zM18 38h1v1h-1zM22 38h1v1h-1zM24 38h1v1h-1zM29 38h1v1h-1zM33 38h2v1h-2zM36 38h4v1h-4zM3 39h7v1h-7zM12 39h1v1h-1zM16 39h2v1h-2zM19 39h7v1h-7zM29 39h1v1h-1zM31 39h2v1h-2zM35 39h2v1h-2zM39 39h1v1h-1z" fill="#A33A00"/></svg></div>
+      <p class="addr"><span>bc1qfdd0raw4cdl6c7ekd87533ln2c966rnalhp4t6</span>
+        <button class="cp" type="button" data-copy="bc1qfdd0raw4cdl6c7ekd87533ln2c966rnalhp4t6">copiar</button></p>
+    </div>
+
+    <p class="foot">Para recibir el Sello Génesis numerado, escribe a
+      <a href="mailto:laprimadesatoshi@gmail.com?subject=Proof%20of%20Boost">laprimadesatoshi@gmail.com</a>
+      con el comprobante. Se responde uno por uno.</p>
   </section>
 
   <section class="cta">
@@ -549,6 +662,52 @@ function resultado(){
 
 
 start();
+</script>
+
+<script>
+/* ── Bloque BOOST · aislado del motor del juego ── */
+(function(){
+  var BTC_USD = 66000;                        /* ← única constante a actualizar */
+  var box = document.getElementById('boost'); if(!box) return;
+  var tiers = box.querySelectorAll('.tier');
+  var libre = document.getElementById('boostMonto');
+  var usd   = document.getElementById('boostUsd');
+  var txt   = document.getElementById('boostMontoTxt');
+  function aUsd(s){ return (s/1e8)*BTC_USD; }
+  function fUsd(v){ return '≈ US$ ' + (v<10 ? v.toFixed(2) : Math.round(v)); }
+  function fSat(s){ return s.toLocaleString('es-AR') + ' sats'; }
+  tiers.forEach(function(t){
+    t.querySelector('.eq').textContent = fUsd(aUsd(+t.dataset.sats));
+    t.addEventListener('click', function(){
+      tiers.forEach(function(o){ o.setAttribute('aria-pressed','false'); });
+      t.setAttribute('aria-pressed','true');
+      libre.value=''; usd.textContent='';
+      txt.textContent = fSat(+t.dataset.sats);
+    });
+  });
+  libre.addEventListener('input', function(){
+    var v = parseInt(libre.value,10);
+    if(!v || v<1){ usd.textContent=''; return; }
+    tiers.forEach(function(o){ o.setAttribute('aria-pressed','false'); });
+    usd.textContent = fUsd(aUsd(v));
+    txt.textContent = fSat(v);
+  });
+  box.querySelectorAll('.cp').forEach(function(b){
+    b.addEventListener('click', function(){
+      var val = b.dataset.copy;
+      function ok(){ var p=b.textContent; b.textContent='copiado';
+        setTimeout(function(){ b.textContent=p; },1600); }
+      function fb(){ var ta=document.createElement('textarea'); ta.value=val;
+        ta.setAttribute('readonly',''); ta.style.position='absolute'; ta.style.left='-9999px';
+        document.body.appendChild(ta); ta.select();
+        try{ document.execCommand('copy'); ok(); }catch(e){}
+        document.body.removeChild(ta); }
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(val).then(ok).catch(fb);
+      } else { fb(); }
+    });
+  });
+})();
 </script>
 </body>
 </html>
