@@ -355,7 +355,7 @@
   </section>
 
 
-  <section class="boost" id="boost">
+  <section class="boost" id="boost" style="display:none">
     <p class="kick">Proof of Boost</p>
     <h2>Impulsa el motor que <span>paga los sats</span></h2>
     <p class="lead">
@@ -667,6 +667,15 @@ start();
 <script>
 /* ── Bloque BOOST · aislado del motor del juego ── */
 (function(){
+  /* Mostrar el bloque solo si la URL trae ?boost=1 (vía friends & family).
+     Sin el parámetro (Geyser / público) queda oculto. */
+  var params = new URLSearchParams(window.location.search);
+  var box0 = document.getElementById('boost');
+  if (params.get('boost') === '1'){
+    if (box0) box0.style.display = '';
+  } else {
+    return; /* no activar el bloque: queda oculto */
+  }
   var BTC_USD = 66000;                        /* ← única constante a actualizar */
   var box = document.getElementById('boost'); if(!box) return;
   var tiers = box.querySelectorAll('.tier');
