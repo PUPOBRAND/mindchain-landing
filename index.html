@@ -306,6 +306,15 @@
     .boost .qr svg{width:176px;height:176px}
   }
 </style>
+  <!-- Vercel Web Analytics · versión para sitio estático (sin build). -->
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    /* helper propio: track() seguro, no rompe si el script aún no cargó o si corre en local */
+    window.mcTrack = function(name, data){
+      try { window.va('event', { name: name, data: data || {} }); } catch(e){}
+    };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 <div class="wrap">
@@ -507,6 +516,7 @@ function snapCap(){
 
 function start(){
   state.orden=armarRonda(); state.i=0; state.aciertos=0; state.satsRonda=0;
+  mcTrack('ronda_iniciada');
   satsN.textContent=sesion.sats.toLocaleString('es');
   document.getElementById('qtot').textContent=RONDA;
   buildChain(); paintChain();
@@ -614,6 +624,12 @@ function resultado(){
   const ok = sesion.correctas, tot = sesion.respondidas;
   const pct = tot ? Math.round(ok/tot*100) : 0;
   const niv = nivelDe(ok, tot);
+  mcTrack('ronda_terminada', {
+    nivel: niv.n,
+    precision_sesion: pct,
+    aciertos_ronda: state.aciertos,
+    preguntas_ronda: RONDA
+  });
   const f = faltaPara(ok, tot);
 
   let progHtml = '';
