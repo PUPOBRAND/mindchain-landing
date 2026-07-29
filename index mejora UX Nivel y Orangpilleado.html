@@ -615,10 +615,12 @@ function cerrarToast(){
 function siguiente(){
   state.i++;
   if(state.i>=RONDA){ resultado(); return; }
+  try { window.scrollTo({ top: 0, behavior: 'instant' }); } catch(e){ window.scrollTo(0,0); }
   render();
 }
 
 function resultado(){
+  try { window.scrollTo({ top: 0, behavior: 'instant' }); } catch(e){ window.scrollTo(0,0); }
   paintChain();
   document.getElementById('footCounter').style.display='none';
   const ok = sesion.correctas, tot = sesion.respondidas;
