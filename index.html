@@ -151,6 +151,14 @@
   .expl.show{display:block;animation:fade .25s ease}
   .expl b{color:var(--naranja-neon)}
   .expl .fuente{display:block;margin-top:11px;font-size:11.5px;color:var(--gris);opacity:.8}
+  .racha{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;margin:14px 0 4px}
+  .racha i{width:15px;height:15px;border-radius:50%;background:var(--naranja);
+    box-shadow:0 0 9px rgba(255,153,0,.55);display:block}
+  .dtag{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gris);margin-bottom:6px}
+  .btn2{width:100%;margin-top:10px;padding:13px;border-radius:12px;cursor:pointer;
+    background:transparent;color:var(--hueso);border:1px solid var(--borde);
+    font-family:inherit;font-size:14.5px;font-weight:600}
+  .btn2:active{transform:scale(.99)}
   @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
 
   .next{display:none;width:100%;margin-top:16px;padding:15px;border:none;border-radius:12px;
@@ -446,6 +454,38 @@ const SET_ACTIVO = (new URLSearchParams(window.location.search).get('set') || ''
 const POOL_SET = SET_ACTIVO ? POOL_BASE.filter(q => (q.set || '') === SET_ACTIVO) : [];
 const POOL = POOL_SET.length ? POOL_SET : POOL_BASE;
 if (POOL_SET.length) RONDA = Math.min(RONDA, POOL_SET.length);
+
+/* ── PREGUNTA DEL DÍA (?hoy=1) ──────────────────────────────────
+   Misma pregunta para todos, derivada de la fecha. Sin servidor.
+   Racha guardada en el navegador. Se puede compartir el resultado. */
+const MODO_DIA = new URLSearchParams(window.location.search).has('hoy');
+const DIA_CERO = Date.UTC(2026, 7, 3);           // 3 de agosto de 2026 = día 1
+function diaHoy(){
+  const n = new Date();
+  const hoyUTC = Date.UTC(n.getFullYear(), n.getMonth(), n.getDate());
+  return Math.floor((hoyUTC - DIA_CERO) / 86400000) + 1;
+}
+function claveDia(){ const n=new Date(); return n.getFullYear()+'-'+String(n.getMonth()+1).padStart(2,'0')+'-'+String(n.getDate()).padStart(2,'0'); }
+/* Baraja determinista del banco: nadie repite pregunta hasta agotarlo. */
+function ordenDeterminista(arr){
+  const a=arr.slice(); let s=20260803;
+  const rnd=()=>{ s=(s*1103515245+12345)&0x7fffffff; return s/0x7fffffff; };
+  for(let i=a.length-1;i>0;i--){ const j=Math.floor(rnd()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
+  return a;
+}
+const PREGUNTA_DIA = MODO_DIA ? (()=>{ const b=ordenDeterminista(POOL_BASE); return b[(diaHoy()-1+b.length*100) % b.length]; })() : null;
+if (MODO_DIA) RONDA = 1;
+/* Racha. Si el navegador la bloquea, el juego funciona igual sin ella. */
+function leerRacha(){ try{ return JSON.parse(localStorage.getItem('mc_racha')||'{}'); }catch(e){ return {}; } }
+function guardarRacha(o){ try{ localStorage.setItem('mc_racha', JSON.stringify(o)); }catch(e){} }
+function ayerClave(){ const n=new Date(); n.setDate(n.getDate()-1); return n.getFullYear()+'-'+String(n.getMonth()+1).padStart(2,'0')+'-'+String(n.getDate()).padStart(2,'0'); }
+function registrarDia(acerto){
+  const r=leerRacha();
+  if(r.ultimo===claveDia()) return r;
+  r.racha = (r.ultimo===ayerClave()) ? (r.racha||0)+1 : 1;
+  r.ultimo=claveDia(); r.jugados=(r.jugados||0)+1; r.aciertos=(r.aciertos||0)+(acerto?1:0);
+  guardarRacha(r); return r;
+}
 const TOTAL_BANCO = POOL.length;
 
 // El nivel mide CONOCIMIENTO (precisión), no volumen.
@@ -490,6 +530,7 @@ const state  = { orden:[], i:0, aciertos:0, satsRonda:0, contestada:false };
 function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
 
 function armarRonda(){
+  if(MODO_DIA && PREGUNTA_DIA){ return [PREGUNTA_DIA]; }
   /* Set temático: orden pedagógico fijo, sin barajar. La secuencia enseña. */
   if(POOL_SET.length){
     const sel=POOL_SET.slice().sort((a,b)=>(a.orden||99)-(b.orden||99)).slice(0,RONDA);
@@ -647,7 +688,39 @@ function siguiente(){
   render();
 }
 
+function resultadoDia(){
+  try { window.scrollTo({ top: 0, behavior: 'instant' }); } catch(e){ window.scrollTo(0,0); }
+  document.getElementById('footCounter').style.display='none';
+  const acerto = state.aciertos > 0;
+  const r = registrarDia(acerto);
+  const n = r.racha || 1;
+  const caps = '<i></i>'.repeat(Math.min(n, 14)) + (n > 14 ? '<span style="color:var(--gris);font-size:12px;align-self:center">+' + (n-14) + '</span>' : '');
+  const precision = r.jugados ? Math.round((r.aciertos/r.jugados)*100) : 0;
+  stage.innerHTML = `
+    <div class="card result">
+      <div class="dtag">Pregunta del día #${diaHoy()}</div>
+      <div class="nivel"><em>${acerto ? '¡Correcto!' : 'Casi'}</em></div>
+      <div class="racha">${caps}</div>
+      <p style="margin:2px 0 0"><b style="color:var(--hueso)">Racha de ${n} ${n===1?'día':'días'}</b>
+      <span style="font-size:12.5px;color:var(--gris)"> · ${r.jugados} ${r.jugados===1?'jugada':'jugadas'} · ${precision}% de acierto</span></p>
+      <p class="cierre">Mañana hay una nueva. Una pregunta a la vez.</p>
+      <button class="next show" id="compartir">Compartir mi racha</button>
+      <button class="btn2" id="verMas">Jugar una ronda completa</button>
+    </div>`;
+  document.getElementById('verMas').onclick = ()=>{ window.location.search = ''; };
+  document.getElementById('compartir').onclick = ()=>{
+    const txt = 'MindChain · Pregunta del día #' + diaHoy() + '\n'
+      + (acerto?'🟠':'⚫') + ' Racha: ' + n + (n===1?' día':' días') + '\n'
+      + 'https://jugar-mindchain.vercel.app/?hoy=1';
+    const ok = ()=>toast('Copiado. Pégalo donde quieras.');
+    if(navigator.share){ navigator.share({ text: txt }).catch(()=>{}); return; }
+    if(navigator.clipboard){ navigator.clipboard.writeText(txt).then(ok).catch(()=>{}); return; }
+    ok();
+  };
+}
+
 function resultado(){
+  if(MODO_DIA){ resultadoDia(); return; }
   try { window.scrollTo({ top: 0, behavior: 'instant' }); } catch(e){ window.scrollTo(0,0); }
   paintChain();
   document.getElementById('footCounter').style.display='none';
