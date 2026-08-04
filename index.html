@@ -529,6 +529,15 @@ const state  = { orden:[], i:0, aciertos:0, satsRonda:0, contestada:false };
 
 function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
 
+/* En modo diario el contador de sats no aporta: una sola pregunta paga
+   entre 21 y 2.100 según dificultad, y compite con la racha. Se oculta. */
+if(MODO_DIA){
+  try{
+    var _sb=document.getElementById('satsBox'); if(_sb) _sb.style.display='none';
+    var _ch=document.getElementById('chain');   if(_ch) _ch.style.display='none';
+  }catch(e){}
+}
+
 function armarRonda(){
   if(MODO_DIA && PREGUNTA_DIA){ return [PREGUNTA_DIA]; }
   /* Set temático: orden pedagógico fijo, sin barajar. La secuencia enseña. */
