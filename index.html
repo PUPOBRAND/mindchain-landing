@@ -775,9 +775,14 @@ function resultado(){
 
       <p class="cierre">${cierreMsg}</p>
 
-      <button class="next show" id="again">Jugar otra ronda</button>
+      <button class="next show" id="again">${POOL_SET.length ? 'Jugar la pregunta de hoy' : 'Jugar otra ronda'}</button>
     </div>`;
-  document.getElementById('again').onclick=()=>{ document.getElementById('footCounter').style.display='block'; start(); };
+  /* Al terminar una ronda temática, el camino natural es la pregunta del día:
+     es lo que hace volver. En ronda normal, se juega otra ronda. */
+  document.getElementById('again').onclick=()=>{
+    if(POOL_SET.length){ window.location.search='?hoy=1'; return; }
+    document.getElementById('footCounter').style.display='block'; start();
+  };
 
   if(sesion.orangePendiente && !sesion.orangeShown){
     sesion.orangeShown=true; sesion.orangePendiente=false;
