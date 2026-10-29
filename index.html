@@ -289,6 +289,72 @@
     background:linear-gradient(180deg,var(--naranja-hot),var(--naranja));
     box-shadow:0 0 24px -6px rgba(247,147,26,.65)}
 
+
+  /* ── MURO GÉNESIS (?muro=1) · financiar MindChain adoptando palabras ── */
+  body.modo-muro #satsBox, body.modo-muro #modoBar, body.modo-muro #chain,
+  body.modo-muro #stage, body.modo-muro #foot{display:none!important}
+  .mg{max-width:560px;margin:0 auto 6px;display:flex;flex-direction:column;gap:26px}
+  .mg[hidden]{display:none}
+  .mg .volver{font-size:13px;color:var(--gris);text-decoration:none}
+  .mg .volver:hover{color:var(--naranja-neon)}
+  .mg .kick{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--naranja-neon);font-weight:600}
+  .mg h2{font-size:26px;line-height:1.08;letter-spacing:-.03em;margin:8px 0 0;font-weight:700;text-wrap:balance}
+  .mg h2 span{color:var(--naranja-neon);text-shadow:0 0 18px rgba(247,147,26,.45)}
+  .mg h3{font-size:16px;font-weight:700;margin-bottom:6px}
+  .mg p{font-size:14px;color:#c9c4bb;line-height:1.6}
+  .mg p b{color:var(--hueso)}
+  .mg .nota{font-size:12.5px;color:var(--gris)}
+  .mg-cifras{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:16px}
+  .mg-cifras div{border-top:1px solid var(--borde);padding-top:8px}
+  .mg-cifras b{display:block;font-size:22px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--hueso)}
+  .mg-cifras small{font-size:11.5px;color:var(--gris);line-height:1.3;display:block}
+  .mg-reserva{margin-top:16px;padding:14px;border-radius:14px;background:var(--naranja-tenue);border:1px solid rgba(247,147,26,.4)}
+  .mg-reserva p{font-size:13.5px}
+  .mg-mail{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .mg-mail code{font-family:inherit;font-weight:700;color:var(--hueso);font-size:15px;overflow-wrap:anywhere}
+  .mg-mail button,.mg-lista button{font-family:inherit;cursor:pointer;border-radius:8px;border:1px solid var(--borde);
+    background:var(--tinta-3);color:var(--hueso);font-size:12.5px;padding:6px 10px}
+  .mg-mail button:hover,.mg-lista button:hover{border-color:var(--naranja)}
+  .mg-box{background:var(--tinta-2);border:1px solid rgba(247,147,26,.28);border-radius:16px;padding:12px;
+    box-shadow:0 0 34px -16px rgba(247,147,26,.6)}
+  .mg-grid{display:grid;grid-template-columns:repeat(32,minmax(0,1fr));gap:2px}
+  .mg-c{aspect-ratio:1/1;border-radius:2px;background:#1d1d23;border:none;padding:0;cursor:pointer;min-width:0}
+  .mg-c.on{background:var(--naranja);box-shadow:0 0 6px rgba(247,147,26,.7)}
+  .mg-c.h1{outline:1px solid rgba(247,147,26,.38);outline-offset:-1px}
+  .mg-c.sel{background:var(--hueso)}
+  .mg-ley{display:flex;gap:14px;flex-wrap:wrap;font-size:11.5px;color:var(--gris);margin-top:10px}
+  .mg-ley i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px;background:#1d1d23;vertical-align:-1px}
+  .mg-ley i.on{background:var(--naranja)} .mg-ley i.h1{outline:1px solid rgba(247,147,26,.6);outline-offset:-1px}
+  .mg-ficha{margin-top:12px;padding:12px 14px;border-radius:12px;background:var(--tinta-3);border:1px solid var(--borde)}
+  .mg-ficha .n{font-size:12px;color:var(--gris);font-variant-numeric:tabular-nums}
+  .mg-ficha .p{font-size:22px;font-weight:700;color:var(--naranja-neon);letter-spacing:-.02em;overflow-wrap:anywhere}
+  .mg-ficha .p.libre{color:var(--gris);font-size:17px;font-weight:600}
+  .mg-ficha .q{font-size:13px;color:#ddd7cc}
+  .mg-lista{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+  .mg-hito{display:grid;grid-template-columns:78px minmax(0,1fr);gap:12px;padding:12px 0;border-top:1px solid var(--borde)}
+  .mg-hito .m{font-size:12px;color:var(--gris);line-height:1.3}
+  .mg-hito .m b{display:block;font-size:20px;color:var(--hueso)}
+  .mg-hito h4{font-size:14.5px;font-weight:700;margin:0}
+  .mg-hito p{font-size:13.5px;margin-top:2px}
+  .mg-bar{height:6px;background:var(--tinta-3);border-radius:99px;overflow:hidden;margin-top:8px}
+  .mg-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--naranja),var(--naranja-neon))}
+  .mg-pasos{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;counter-reset:p}
+  .mg-pasos li{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;counter-increment:p;font-size:13.5px;color:#c9c4bb;line-height:1.55}
+  .mg-pasos li::before{content:counter(p);color:var(--naranja-neon);font-weight:700}
+  .mg-pasos b{color:var(--hueso)}
+  .mg-tabla{overflow-x:auto}
+  .mg table{width:100%;border-collapse:collapse;font-size:13px;min-width:380px}
+  .mg th,.mg td{text-align:left;vertical-align:top;padding:8px 10px;border-bottom:1px solid var(--borde);color:#c9c4bb}
+  .mg th{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--gris)}
+  .mg td:first-child{color:var(--hueso);font-weight:600;white-space:nowrap}
+  .mg-aviso{padding:14px;border-radius:14px;border:1px solid rgba(255,169,40,.5);background:var(--naranja-tenue)}
+  .mg-aviso h3{color:var(--naranja-neon)}
+  .mg-aviso p{color:var(--hueso)}
+  .mg-dir{font-size:12.5px;color:var(--gris);border:1px dashed var(--borde);border-radius:10px;padding:10px 12px;margin-top:8px;overflow-wrap:anywhere}
+  .cta .mg-link{display:inline-block;margin-top:12px;font-size:14px;font-weight:700;color:var(--naranja-neon);
+    text-decoration:underline;text-underline-offset:4px}
+  @media (max-width:400px){.mg-cifras b{font-size:18px}.mg h2{font-size:23px}}
+
   /* ── Bloque BOOST (aportes) ── */
   .boost{max-width:560px;margin:22px auto 0;padding:24px 22px;border-radius:18px;
     background:linear-gradient(180deg,var(--tinta-2),rgba(17,17,20,.6));
@@ -371,6 +437,73 @@
     </div>
     <span class="demo-tag">Prototipo · demo</span>
   </header>
+
+  <section class="mg" id="muro" hidden aria-labelledby="mgT">
+    <a class="volver" href="./">← Volver al juego</a>
+    <div>
+      <p class="kick">Financiar MindChain · Muro Génesis</p>
+      <h2 id="mgT">Adopta una palabra y financia <span>MindChain</span>.</h2>
+      <p style="margin-top:12px">Las frases semilla de Bitcoin, de 12 o 24 palabras, se arman con una lista pública de <b>2.048 palabras</b>. Este muro tiene una casilla para cada una. Cada aporte de <b>21.000 sats</b> adopta una palabra, que se asigna <b>al azar</b>, y queda en el muro para siempre.</p>
+      <div class="mg-cifras">
+        <div><b id="mgAdopt">0</b><small>palabras adoptadas de 2.048</small></div>
+        <div><b id="mgSats">0</b><small>sats en el fondo</small></div>
+        <div><b id="mgFalta">48</b><small>palabras para el primer hito</small></div>
+      </div>
+      <div class="mg-reserva">
+        <p><b>Los aportes se abren cuando los pagos por Lightning estén funcionando.</b> Si quieres estar entre las primeras 48 palabras, reserva la tuya escribiendo a:</p>
+        <div class="mg-mail"><code id="mgMail">laprimadesatoshi@gmail.com</code><button type="button" id="mgCopiar">Copiar</button></div>
+      </div>
+    </div>
+
+    <div>
+      <h3>El muro</h3>
+      <p class="nota" style="margin-bottom:10px">Las casillas se llenan en orden de llegada; la palabra que toca es al azar. Toca una casilla para ver de quién es.</p>
+      <div class="mg-box">
+        <div class="mg-grid" id="mgGrid" aria-label="Muro de 2.048 casillas"></div>
+        <div class="mg-ley"><span><i class="on"></i>Adoptada</span><span><i></i>Libre</span><span><i class="h1"></i>Primer hito · 48 casillas</span></div>
+        <div class="mg-ficha" id="mgFicha" aria-live="polite"></div>
+        <div class="mg-lista" id="mgLista"></div>
+      </div>
+    </div>
+
+    <div>
+      <h3>Para qué es cada hito</h3>
+      <div id="mgHitos"></div>
+    </div>
+
+    <div>
+      <h3>Cómo se adopta una palabra</h3>
+      <ol class="mg-pasos">
+        <li><span><b>Eliges cómo aparecer.</b> Con tu nombre o marca, con un seudónimo o como anónimo ("Padrino #37"). Sin links.</span></li>
+        <li><span><b>Aportas 21.000 sats por Lightning.</b> Quien paga por Lightning no deja su dirección en un registro público.</span></li>
+        <li><span><b>Recibes tu palabra y un código privado.</b> La palabra sale al azar de la lista de 2.048. El código prueba que es tuya.</span></li>
+        <li><span><b>Tu casilla aparece en el muro</b> junto con todos los aportes del mes, como "Aportes de octubre". La fecha exacta de tu aporte no aparece nunca.</span></li>
+      </ol>
+    </div>
+
+    <div>
+      <h3>Qué se publica y qué no</h3>
+      <div class="mg-tabla"><table>
+        <thead><tr><th></th><th>Se publica</th><th>No se publica</th></tr></thead>
+        <tbody>
+          <tr><td>El fondo</td><td>Su dirección, el total reunido, las palabras adoptadas y cada gasto</td><td>—</td></tr>
+          <tr><td>Cada padrino</td><td>La palabra, su número, el nombre que eligió y el mes del aporte</td><td>Su dirección, el día y la hora del aporte, su contacto</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="mg-aviso">
+      <h3>Nunca te vamos a pedir tu frase semilla</h3>
+      <p>Para adoptar una palabra no escribes ninguna palabra: te la asigna el muro. Si alguien te pide palabras de tu frase semilla en nombre de este muro, es una estafa.</p>
+    </div>
+
+    <div>
+      <h3>El fondo, a la vista</h3>
+      <p>Cualquiera puede comprobar cuánto hay. Lo que entra por Lightning se pasa cada mes a una dirección pública.</p>
+      <div class="mg-dir">Dirección del fondo: se publica cuando se abran los aportes.</div>
+      <p class="nota" style="margin-top:8px">Una palabra suelta de la lista no revela nada sobre ninguna billetera. La seguridad de una frase semilla está en qué palabras salen y en qué orden: con 12 palabras hay más de 10<sup>39</sup> combinaciones posibles, y con 24, más de 10<sup>79</sup>.</p>
+    </div>
+  </section>
 
   <div class="sats" id="satsBox">
     <span class="n" id="satsN">0</span>
@@ -480,6 +613,7 @@
     <p class="l1">Buscamos <b>aporte ángel o alianza estratégica</b><br>para llevar MindChain del prototipo al MVP.</p>
     <p class="l2">Hablemos.</p>
     <a class="mail" href="mailto:laprimadesatoshi@gmail.com?subject=MindChain">laprimadesatoshi@gmail.com</a>
+    <br><a class="mg-link" href="?muro=1">Financiar MindChain: adopta una palabra</a>
   </section>
 
 </div>
@@ -1000,6 +1134,70 @@ start();
         navigator.clipboard.writeText(val).then(ok).catch(fb);
       } else { fb(); }
     });
+  });
+})();
+</script>
+
+<script>
+/* ── MURO GÉNESIS · aislado del motor del juego ──
+   Las palabras adoptadas llegan como lote mensual (casilla, palabra, indice, aparece, mes).
+   Para agregar un lote: sumar filas a MURO_LOTE. Nada de datos privados aquí. */
+(function(){
+  var MURO_LOTE = [];
+  var PRECIO = 21000, TOTAL = 2048;
+  var HITOS = [
+    {n:48,   t:'Los primeros jugadores cobran sats reales', d:'El juego empieza a pagar en sats a quienes aprenden jugando, desde el primer nivel.'},
+    {n:210,  t:'El sistema que verifica las respuestas', d:'Un servidor que comprueba cada respuesta antes de pagar, para que los premios no se puedan falsificar.'},
+    {n:2048, t:'El muro completo y el fondo de premios', d:'Las 2.048 palabras adoptadas y un fondo estable para pagar a jugadores de toda Latinoamérica.'}
+  ];
+  var params = new URLSearchParams(window.location.search);
+  if (params.get('muro') !== '1') return;
+  var sec = document.getElementById('muro'); if (!sec) return;
+  document.body.classList.add('modo-muro'); sec.hidden = false;
+  try { window.scrollTo(0,0); } catch(e){}
+  if (window.mcTrack) mcTrack('muro_visto');
+
+  var fmt = function(n){ return n.toLocaleString('es-ES'); };
+  var esc = function(t){ return String(t).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); };
+  var porCasilla = {}; MURO_LOTE.forEach(function(a){ porCasilla[a.casilla] = a; });
+  var n = MURO_LOTE.length;
+  document.getElementById('mgAdopt').textContent = fmt(n);
+  document.getElementById('mgSats').textContent = fmt(n*PRECIO);
+  document.getElementById('mgFalta').textContent = fmt(Math.max(0, HITOS[0].n - n));
+
+  var grid = document.getElementById('mgGrid'), ficha = document.getElementById('mgFicha'), frag = document.createDocumentFragment();
+  for (var k=1; k<=TOTAL; k++){
+    var b = document.createElement('button'); b.type='button'; b.className='mg-c'; b.dataset.k=k;
+    if (porCasilla[k]) { b.className+=' on'; b.setAttribute('aria-label','Casilla '+k+': '+porCasilla[k].palabra); }
+    else { b.setAttribute('aria-label','Casilla '+k+' libre'); b.tabIndex=-1; }
+    if (k<=HITOS[0].n) b.className+=' h1';
+    frag.appendChild(b);
+  }
+  grid.appendChild(frag);
+  var sel = null;
+  function mostrar(k){
+    if (sel) sel.classList.remove('sel');
+    sel = grid.children[k-1]; if (sel) sel.classList.add('sel');
+    var a = porCasilla[k], num = '#'+String(k).padStart(4,'0');
+    ficha.innerHTML = a
+      ? '<div class="n">'+num+'</div><div class="p">'+esc(a.palabra)+'</div><div class="q">'+esc(a.aparece)+' · Aportes de '+esc(a.mes)+' · palabra '+a.indice+' de la lista</div>'
+      : '<div class="n">'+num+'</div><div class="p libre">Casilla libre</div><div class="q">'+(k<=HITOS[0].n?'Forma parte del primer hito.':'Espera a su padrino.')+'</div>';
+  }
+  grid.addEventListener('click', function(e){ var t=e.target.closest('.mg-c'); if(t) mostrar(+t.dataset.k); });
+  var lista = document.getElementById('mgLista');
+  lista.innerHTML = MURO_LOTE.map(function(a){ return '<button type="button" data-k="'+a.casilla+'">#'+a.casilla+' '+esc(a.palabra)+'</button>'; }).join('');
+  lista.addEventListener('click', function(e){ var t=e.target.closest('button'); if(t) mostrar(+t.dataset.k); });
+  mostrar(n ? n : 1);
+
+  document.getElementById('mgHitos').innerHTML = HITOS.map(function(h){
+    var pct = Math.min(100, n/h.n*100);
+    return '<div class="mg-hito"><div class="m"><b>'+fmt(h.n)+'</b>palabras<br>'+fmt(h.n*PRECIO)+' sats</div><div><h4>'+h.t+'</h4><p>'+h.d+'</p><div class="mg-bar"><i style="width:'+pct.toFixed(1)+'%"></i></div><p class="nota">'+fmt(Math.min(n,h.n))+' de '+fmt(h.n)+'</p></div></div>';
+  }).join('');
+
+  document.getElementById('mgCopiar').addEventListener('click', function(){
+    var btn = this, txt = document.getElementById('mgMail').textContent;
+    var ok = function(){ btn.textContent='Copiado'; setTimeout(function(){ btn.textContent='Copiar'; },1500); };
+    if (navigator.clipboard) navigator.clipboard.writeText(txt).then(ok).catch(function(){});
   });
 })();
 </script>
